@@ -11,7 +11,7 @@ namespace _app.Scripts.Enemy.States.ConcreteStates {
         // ===== EnemyState Overrides =====
         public override void EnterState() {
             base.EnterState();
-
+            Debug.Log("Enemy entered the IDLE STATE");
             TargetPosition = GetRandomPointInCircle();
         }
 
@@ -19,6 +19,8 @@ namespace _app.Scripts.Enemy.States.ConcreteStates {
             base.FrameUpdate();
 
             // If enemy aggroed, change to chase state
+            if (_Enemy.IsAggroed)
+                _StateMachine.ChangeState(_Enemy.ChaseState);
 
             // Calculate relative position of target
             Vector2 relativePosition = TargetPosition - _Enemy.transform.position;

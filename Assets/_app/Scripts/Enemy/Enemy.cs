@@ -11,7 +11,8 @@ namespace _app.Scripts.Enemy {
         // State Machine
         private EnemyStateMachine StateMachine;
         // Concrete States
-        private EnemyIdleState IdleState;
+        public EnemyIdleState IdleState;
+        public EnemyChaseState ChaseState;
 
         [Header("Health Fields")]
         public float MaxHealth { get; set; }
@@ -32,8 +33,11 @@ namespace _app.Scripts.Enemy {
         // ===== Unity Events =====
 
         void Awake() {
+            // Initialize State Machine
             StateMachine = new EnemyStateMachine();
+            // Initialize Concrete States
             IdleState = new EnemyIdleState(this, StateMachine);
+            ChaseState = new EnemyChaseState(this, StateMachine);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
