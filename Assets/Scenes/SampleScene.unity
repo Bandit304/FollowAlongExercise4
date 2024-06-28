@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthText: {fileID: 1457734682}
-  GameOverText: {fileID: 0}
+  GameOverText: {fileID: 927788855}
 --- !u!4 &360685129
 Transform:
   m_ObjectHideFlags: 0
@@ -781,7 +781,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927788853}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -961,6 +961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 985886802}
   - component: {fileID: 985886803}
+  - component: {fileID: 985886804}
   m_Layer: 0
   m_Name: AttackTrigger
   m_TagString: Untagged
@@ -1019,6 +1020,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 2
+--- !u!114 &985886804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985886801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abce2ebb17ee0a4a925105a3312b51a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1230682539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,7 +1486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 096dc7976ce29e843b8f6bde0c72e00a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamagePerHit: 0
+  DamagePerHit: 1
   MovementSpeed: 2
   RandomMovementRange: 3
   IsFacingRight: 0
