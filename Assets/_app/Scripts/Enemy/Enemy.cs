@@ -1,20 +1,25 @@
 using _app.Scripts.Enemy.States;
+using _app.Scripts.Enemy.States.ConcreteStates;
 using _app.Scripts.Interfaces;
 using UnityEngine;
 
 namespace _app.Scripts.Enemy {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class Enemy : MonoBehaviour, IDamageable, IEnemyMovable, ITriggerCheckable {
         // ===== Fields =====
         [Header("Enemy State Fields")]
         // State Machine
-        public EnemyStateMachine StateMachine;
+        private EnemyStateMachine StateMachine;
         // Concrete States
+        private EnemyIdleState IdleState;
 
         [Header("Health Fields")]
         public float MaxHealth { get; set; }
         public float CurrentHealth { get; set; }
 
         [Header("Movement Fields")]
+        public float MovementSpeed;
+        public float RandomMovementRange;
         public bool IsFacingRight;
         
         [Header("Trigger Checking Fields")]
@@ -26,10 +31,16 @@ namespace _app.Scripts.Enemy {
 
         // ===== Unity Events =====
 
+        void Awake() {
+            StateMachine = new EnemyStateMachine();
+            IdleState = new EnemyIdleState(this, StateMachine);
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start() {
             CurrentHealth = MaxHealth;
             rb = GetComponent<Rigidbody2D>();
+            StateMachine.Initialize(IdleState);
         }
 
         // Update is called once per frame

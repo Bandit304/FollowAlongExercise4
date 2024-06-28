@@ -5,13 +5,12 @@ namespace _app.Scripts.Enemy.States {
         // ===== Fields =====
         public EnemyState State;
 
-        // ===== Constructors =====
-        public EnemyStateMachine(EnemyState initialState) {
+        // ===== Methods =====
+        public void Initialize(EnemyState initialState) {
             State = initialState;
             State.EnterState();
         }
 
-        // ===== Methods =====
         public void ChangeState(EnemyState newState) {
             State.ExitState();
             State = newState;
