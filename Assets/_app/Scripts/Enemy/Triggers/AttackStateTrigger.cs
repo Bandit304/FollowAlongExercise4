@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _app.Scripts.Enemy.Triggers {
     [RequireComponent(typeof(Collider2D))]
-    public class ChaseStateTrigger : MonoBehaviour {
+    public class AttackStateTrigger : MonoBehaviour {
         // ===== Fields =====
 
         [Header("Parent Components")]
@@ -18,12 +18,12 @@ namespace _app.Scripts.Enemy.Triggers {
         // ===== Trigger Events =====
         public void OnTriggerEnter2D(Collider2D other) {
             if (other.CompareTag("Player"))
-                _Enemy.IsAggroed = true;
+                _Enemy.IsWithinStrikingDistance = true;
         }
         
         public void OnTriggerExit2D(Collider2D other) {
             if (other.CompareTag("Player"))
-                _Enemy.IsAggroed = false;
+                _Enemy.IsWithinStrikingDistance = false;
         }
     }
 }

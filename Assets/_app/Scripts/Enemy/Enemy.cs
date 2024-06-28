@@ -13,10 +13,12 @@ namespace _app.Scripts.Enemy {
         // Concrete States
         public EnemyIdleState IdleState;
         public EnemyChaseState ChaseState;
+        public EnemyAttackState AttackState;
 
         [Header("Health Fields")]
         public float MaxHealth { get; set; }
         public float CurrentHealth { get; set; }
+        public float DamagePerHit;
 
         [Header("Movement Fields")]
         public float MovementSpeed;
@@ -29,6 +31,7 @@ namespace _app.Scripts.Enemy {
 
         [Header("Components")]
         public Rigidbody2D rb { get; private set; }
+        public SpriteRenderer sprite { get; private set; }
 
         // ===== Unity Events =====
 
@@ -38,12 +41,14 @@ namespace _app.Scripts.Enemy {
             // Initialize Concrete States
             IdleState = new EnemyIdleState(this, StateMachine);
             ChaseState = new EnemyChaseState(this, StateMachine);
+            AttackState = new EnemyAttackState(this, StateMachine);
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start() {
             CurrentHealth = MaxHealth;
             rb = GetComponent<Rigidbody2D>();
+            sprite = GetComponentInChildren<SpriteRenderer>();
             StateMachine.Initialize(IdleState);
         }
 

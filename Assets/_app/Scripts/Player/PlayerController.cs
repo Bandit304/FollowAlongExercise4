@@ -1,9 +1,11 @@
+using _app.Scripts.Interfaces;
+using _app.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace _app.Scripts.Player {
     [RequireComponent(typeof(PlayerInput), typeof(Rigidbody2D))]
-    public class PlayerController : MonoBehaviour {
+    public class PlayerController : MonoBehaviour, IDamageable {
         // ===== Fields =====
 
         [Header("Singleton Reference")]
@@ -14,6 +16,10 @@ namespace _app.Scripts.Player {
 
         [Header("Movement Values")]
         public float movementSpeed;
+
+        [Header("Health Fields")]
+        [field: SerializeField] public float MaxHealth { get; set; }
+        public float CurrentHealth { get; set; }
 
         // ===== Unity Events =====
 
@@ -27,11 +33,28 @@ namespace _app.Scripts.Player {
 
         void Start() {
             rb = GetComponent<Rigidbody2D>();
+            CurrentHealth = MaxHealth;
+            UIManager.Instance.DisplayHealth(CurrentHealth);
         }
 
         // ===== Player Input Events =====
         public void OnPlayerMove(InputAction.CallbackContext context) {
             rb.velocity = context.ReadValue<Vector2>() * movementSpeed;
+        }
+
+        // ===== IDamageable Methods =====
+        public void Damage(float damage) {
+            CurrentHealth -= damage;
+            if (CurrentHealth <= 0) {
+                CurrentHealth = 0;
+                Die();
+            }
+            UIManager.Instance.DisplayHealth(CurrentHealth);
+        }
+
+        public void Die() {
+            UIManager.Instance.DisplayGameOver();
+            gameObject.SetActive(false);
         }
 
         // ===== Methods =====

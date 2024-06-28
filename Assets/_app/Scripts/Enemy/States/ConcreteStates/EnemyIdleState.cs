@@ -12,15 +12,14 @@ namespace _app.Scripts.Enemy.States.ConcreteStates {
         public override void EnterState() {
             base.EnterState();
             Debug.Log("Enemy entered the IDLE STATE");
+            _Enemy.sprite.color = Color.white;
+
+            // Set initial target position
             TargetPosition = GetRandomPointInCircle();
         }
 
         public override void FrameUpdate() {
             base.FrameUpdate();
-
-            // If enemy aggroed, change to chase state
-            if (_Enemy.IsAggroed)
-                _StateMachine.ChangeState(_Enemy.ChaseState);
 
             // Calculate relative position of target
             Vector2 relativePosition = TargetPosition - _Enemy.transform.position;
@@ -30,6 +29,10 @@ namespace _app.Scripts.Enemy.States.ConcreteStates {
             // If enemy position is close enough to target position, randomize target position
             if (relativePosition.sqrMagnitude < 0.01f)
                 TargetPosition = GetRandomPointInCircle();
+
+            // If enemy aggroed, change to chase state
+            if (_Enemy.IsAggroed)
+                _StateMachine.ChangeState(_Enemy.ChaseState);
         }
 
         // ===== Methods =====
